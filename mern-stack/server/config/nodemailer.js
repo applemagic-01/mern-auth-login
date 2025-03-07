@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.ipage.com',
+    host: '', //smtp host
     port: 587,
     auth: {
         user: process.env.SMTP_USER,
