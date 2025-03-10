@@ -1,3 +1,4 @@
+authController.js
 
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -6,7 +7,6 @@ import transporter from "../config/nodemailer.js";
 import {
     EMAIL_VERIFY_TEMPLATE, PASSWORD_RESET_TEMPLATE
 } from "../config/emailTemplates.js";
-
 
 //register
 export const register = async (req, res) => {
@@ -30,12 +30,12 @@ export const register = async (req, res) => {
             expiresIn: "7d",
         });
 
+        //Here is where the changes where done
         res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
             maxAge: 7 * 24 * 60 * 60 * 1000,
-            domain: '.mern-auth-frontend-0m3x.onrender.com' ,
         });
         //sending welcome email
         const mailOptions = {
@@ -73,12 +73,12 @@ export const login = async (req, res) => {
             expiresIn: "7d",
         });
 
+        //Here is where the changes where done
         res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
             maxAge: 7 * 24 * 60 * 60 * 1000,
-            domain: '.mern-auth-frontend-0m3x.onrender.com' ,
         });
 
         return res.json({ success: true });
