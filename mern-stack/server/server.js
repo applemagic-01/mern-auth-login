@@ -1,3 +1,4 @@
+server.js
 import express from "express";
 import cors from "cors";
 import 'dotenv/config';
@@ -10,12 +11,13 @@ import userRouter from "./routes/userRoutes.js";
 const app = express();
 const port = process.env.PORT || 4000;
 
+
 const allowedOrigins = ['https://mern-auth-frontend-0m3x.onrender.com'];
 
 app.use(express.json());
 app.use(cookieParser());
 
-// CORS Configuration
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
@@ -28,11 +30,19 @@ app.use(cors({
   credentials: true
 }));
 
-connectDB();
 
-// API endpoints
-app.get('/', (req, res) => res.send("API working"));
-app.use('/api/auth', authRouter);
-app.use('/api/user', userRouter);
 
-app.listen(port, () => console.log(`Server started on PORT: ${port}`));
+async function startServer() {
+  
+  await connectDB();
+
+  // API endpoints
+  app.get('/', (req, res) => res.send("API working"));
+  app.use('/api/auth', authRouter);
+  app.use('/api/user', userRouter);
+
+
+  app.listen(port, () => console.log(`Server started on PORT: ${port}`));
+}
+
+startServer();
